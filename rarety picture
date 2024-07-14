@@ -1,0 +1,27 @@
+import discord, random
+from discord.ext import commands
+
+@bot.command('send_picture')
+async def send_picture(ctx):
+
+    pictures = {
+        'common_picture': 70,  
+        'uncommon_picture': 20,  
+        'rare_picture': 10   
+    }
+    
+    
+    rand_num = random.randint(1, 100)
+    
+    if rand_num <= pictures['common_picture']:
+        picture_file = 'common_picture.jpg'
+    elif rand_num <= pictures['common_picture'] + pictures['uncommon_picture']:
+        picture_file = 'uncommon_picture.jpg'
+    else:
+        picture_file = 'rare_picture.jpg'
+    
+    
+    picture_path = f'pictures/{picture_file}'  
+    with open(picture_path, 'rb') as f:
+        picture = discord.File(f)
+        await ctx.send(file=picture)
